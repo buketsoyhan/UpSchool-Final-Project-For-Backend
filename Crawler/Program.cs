@@ -1,54 +1,49 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections.Generic;
 
 class Program
 {
     static void Main(string[] args)
     {
         IWebDriver driver = new ChromeDriver();
-        driver.Navigate().GoToUrl("https://finalproject.dotnet.gg/");
 
-        bool hasNextPage = true;
+        List<Product> products = new List<Product>();
 
-        while (hasNextPage)
+        for (int page = 1; page <= 10; page++)
         {
-            var products = driver.FindElements(By.CssSelector(".card"));
+            driver.Navigate().GoToUrl($"https://finalproject.dotnet.gg/?currentPage={page}");
 
-            foreach (var product in products)
+            IReadOnlyCollection<IWebElement> productElements = driver.FindElements(By.CssSelector(".card"));
+
+            foreach (IWebElement productElement in productElements)
             {
-                var name = product.FindElement(By.CssSelector(".product-name")).Text;
-                //var price = product.FindElement(By.CssSelector(".price")).Text;
-                var imageUrl = product.FindElement(By.CssSelector(".card-img-top")).GetAttribute("src");
+                string name = productElement.FindElement(By.CssSelector(".product-name")).Text;
+                string price = productElement.FindElement(By.CssSelector(".price")).Text;
+                string imageLocation = productElement.FindElement(By.CssSelector(".card-img-top")).GetAttribute("src");
 
-                Console.WriteLine($"Product Name: {name}");
-                //Console.WriteLine($"Price: {price}");
-                Console.WriteLine($"Image URL: {imageUrl}");
+                products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation });
             }
-
-           
-            try
-            {
-                var nextPageLink = driver.FindElement(By.CssSelector(".next-page"));
-                //if (nextPageLink.Enabled)
-                //{
-                //    nextPageLink.Click();
-                //}
-                //else
-                //{
-                //    hasNextPage = false;
-                //}
-                if (nextPageLink is null) 
-                {
-                    hasNextPage = false;
-                }
-
-            }
-            catch (NoSuchElementException)
-            {
-                hasNextPage = false;
-            }
-
-            driver.Quit();
         }
+
+        driver.Quit();
+
+        foreach (Product product in products)
+        {
+            Console.WriteLine($"Product Name: {product.Name}");
+            Console.WriteLine($"Product Price: {product.Price}");
+            Console.WriteLine($"Product Image: {product.ImageLocation}");
+            Console.WriteLine("------------------------");
+        }
+
+        Console.ReadLine();
     }
+}
+
+class Product
+{
+    public string Name { get; set; }
+    public string Price { get; set; }
+    public string ImageLocation { get; set; }
 }
