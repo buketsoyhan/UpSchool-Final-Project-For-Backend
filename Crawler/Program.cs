@@ -9,6 +9,8 @@ class Program
     {
         IWebDriver driver = new ChromeDriver();
 
+        DateTime now = DateTime.Now;
+        Console.WriteLine("Website logged in. - " + now.ToString("dd.MM.yyyy : HH:mm"));
         List<Product> products = new List<Product>();
 
         for (int page = 1; page <= 10; page++)
@@ -25,7 +27,12 @@ class Program
 
                 products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation });
             }
+
+            Console.WriteLine(($"Page {page} scanned. Total {products.Count} products - " + now.ToString("dd.MM.yyyy : HH:mm")));
+
         }
+        var totalProduct = products.Count;
+        Console.WriteLine(($"{totalProduct} products detected - " + now.ToString("dd.MM.yyyy : HH:mm")));
 
         driver.Quit();
 
@@ -36,6 +43,8 @@ class Program
             Console.WriteLine($"Product Image: {product.ImageLocation}");
             Console.WriteLine("------------------------");
         }
+
+        Console.WriteLine("Data scraping completed. - " + now.ToString("dd.MM.yyyy : HH:mm"));
 
         Console.ReadLine();
     }
