@@ -24,8 +24,20 @@ class Program
                 string name = productElement.FindElement(By.CssSelector(".product-name")).Text;
                 string price = productElement.FindElement(By.CssSelector(".price")).Text;
                 string imageLocation = productElement.FindElement(By.CssSelector(".card-img-top")).GetAttribute("src");
+                bool isOnSale = productElement.FindElements(By.CssSelector(".onsale")).Count > 0;
 
-                products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation });
+                if(isOnSale==true)
+                {
+                    string onSalePrice = productElement.FindElement(By.CssSelector(".sale-price")).Text;
+                    products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation, IsOnSale = isOnSale, OnSalePrice = onSalePrice });
+
+                }
+
+                else
+                {
+                    products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation, IsOnSale = isOnSale });
+
+                }
             }
 
             Console.WriteLine(($"Page {page} scanned. Total {products.Count} products - " + now.ToString("dd.MM.yyyy : HH:mm")));
@@ -41,6 +53,11 @@ class Program
             Console.WriteLine($"Product Name: {product.Name}");
             Console.WriteLine($"Product Price: {product.Price}");
             Console.WriteLine($"Product Image: {product.ImageLocation}");
+            Console.WriteLine($"Product Is On Sale: {product.IsOnSale}");
+            if(product.IsOnSale == true )
+            {
+                Console.WriteLine($"Product On Sale Price: {product.OnSalePrice}");
+            }
             Console.WriteLine("------------------------");
         }
 
@@ -55,4 +72,6 @@ class Product
     public string Name { get; set; }
     public string Price { get; set; }
     public string ImageLocation { get; set; }
+    public bool IsOnSale { get; set; }
+    public string OnSalePrice { get;set; }
 }
