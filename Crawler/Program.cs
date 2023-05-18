@@ -1,8 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
-using System.Collections.Generic;
-
+using System.Text.RegularExpressions;
 class Program
 {
     static void Main(string[] args)
@@ -12,6 +11,8 @@ class Program
         DateTime now = DateTime.Now;
         Console.WriteLine("Website logged in. - " + now.ToString("dd.MM.yyyy : HH:mm"));
         List<Product> products = new List<Product>();
+        string pattern = @"(\d+)";
+        string id;
 
         for (int page = 1; page <= 10; page++)
         {
@@ -24,18 +25,30 @@ class Program
                 string name = productElement.FindElement(By.CssSelector(".product-name")).Text;
                 string price = productElement.FindElement(By.CssSelector(".price")).Text;
                 string imageLocation = productElement.FindElement(By.CssSelector(".card-img-top")).GetAttribute("src");
+
+                Match match = Regex.Match(imageLocation, pattern);
+
+                if (match.Success)
+                {
+                    id = match.Value;
+                }
+                else
+                {
+                    id= Guid.NewGuid().ToString();
+                }
+
                 bool isOnSale = productElement.FindElements(By.CssSelector(".onsale")).Count > 0;
 
                 if(isOnSale==true)
                 {
                     string onSalePrice = productElement.FindElement(By.CssSelector(".sale-price")).Text;
-                    products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation, IsOnSale = isOnSale, OnSalePrice = onSalePrice });
+                    products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation, IsOnSale = isOnSale, OnSalePrice = onSalePrice, Id=id });
 
                 }
 
                 else
                 {
-                    products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation, IsOnSale = isOnSale });
+                    products.Add(new Product { Name = name, Price = price, ImageLocation = imageLocation, IsOnSale = isOnSale, Id = id });
 
                 }
             }
@@ -54,7 +67,8 @@ class Program
             Console.WriteLine($"Product Price: {product.Price}");
             Console.WriteLine($"Product Image: {product.ImageLocation}");
             Console.WriteLine($"Product Is On Sale: {product.IsOnSale}");
-            if(product.IsOnSale == true )
+            Console.WriteLine($"Product Id: {product.Id}");
+            if (product.IsOnSale == true )
             {
                 Console.WriteLine($"Product On Sale Price: {product.OnSalePrice}");
             }
@@ -69,6 +83,7 @@ class Program
 
 class Product
 {
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Price { get; set; }
     public string ImageLocation { get; set; }
