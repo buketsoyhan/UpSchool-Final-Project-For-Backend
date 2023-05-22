@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Domain.Entities;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Text.RegularExpressions;
 class Program
@@ -27,6 +28,8 @@ class Program
                     string price = productElement.FindElement(By.CssSelector(".price")).Text;
                     string picture = productElement.FindElement(By.CssSelector(".card-img-top")).GetAttribute("src");
 
+                    price = price.Replace("$", "");
+
                     Match match = Regex.Match(picture, pattern);
 
                     if (match.Success)
@@ -43,13 +46,15 @@ class Program
                     if (isOnSale == true)
                     {
                         string onSalePrice = productElement.FindElement(By.CssSelector(".sale-price")).Text;
-                        products.Add(new Product { Name = name, Price = price, Picture = picture, IsOnSale = isOnSale, OnSalePrice = onSalePrice, OrderId = orderId });
+                        onSalePrice = onSalePrice.Replace("$", "");
+
+                        products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, SalePrice = decimal.Parse(onSalePrice), OrderId = orderId });
 
                     }
 
                     else
                     {
-                        products.Add(new Product { Name = name, Price = price, Picture = picture, IsOnSale = isOnSale, OrderId = orderId });
+                        products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, OrderId = orderId });
 
                     }
                 }
@@ -71,7 +76,7 @@ class Program
                 Console.WriteLine($"Product Id: {product.OrderId}");
                 if (product.IsOnSale == true)
                 {
-                    Console.WriteLine($"Product On Sale Price: {product.OnSalePrice}");
+                    Console.WriteLine($"Product On Sale Price: {product.SalePrice}");
                 }
                 Console.WriteLine("------------------------");
             }
@@ -87,12 +92,4 @@ class Program
     }
 }
 
-class Product
-{
-    public string OrderId { get; set; }
-    public string Name { get; set; }
-    public string Price { get; set; }
-    public string Picture { get; set; }
-    public bool IsOnSale { get; set; }
-    public string OnSalePrice { get; set; }
-}
+
