@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Common;
 
 namespace Domain.Entities
 {
-    public class Product
+    public class Product : EntityBase<Guid>
     {
         public Guid Id { get; set; }
         public Order Order { get; set; }
