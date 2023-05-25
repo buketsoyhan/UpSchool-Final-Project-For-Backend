@@ -14,6 +14,7 @@ namespace Infrastructure.Persistence.Configurations.Application
 
             // Diğer sütun yapılandırmaları
             builder.Property(oe => oe.Status).IsRequired();
+            builder.Property(oe => oe.Status).HasConversion<int>(); // Convension has been made because Db has not an enum type.
 
             // Common Fields
 

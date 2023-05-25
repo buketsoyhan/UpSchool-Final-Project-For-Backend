@@ -1,9 +1,10 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Common;
 using MediatR;
 
 namespace Application.Features.Excel.Commands.WriteOrders
 {
-    public class ExcelWriteOrdersCommandHandler : IRequestHandler<ExcelWriteOrdersCommand, object>
+    public class ExcelWriteOrdersCommandHandler : IRequestHandler<ExcelWriteOrdersCommand, Response<int>>
     {
         private readonly IApplicationDbContext _applicationDbContext;
         private readonly IExcelService _excelService;
@@ -14,9 +15,9 @@ namespace Application.Features.Excel.Commands.WriteOrders
             _excelService = excelService;
         }
 
-        public Task<object> Handle(ExcelWriteOrdersCommand request, CancellationToken cancellationToken)
+        public async  Task<Response<int>> Handle(ExcelWriteOrdersCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return new Response<int>($"Saved to the excel page");
         }
     }
 }

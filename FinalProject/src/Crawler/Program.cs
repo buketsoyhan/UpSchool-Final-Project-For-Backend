@@ -16,6 +16,9 @@ class Program
             string pattern = @"(\d+)";
             string orderId;
 
+            Console.WriteLine("How many items do you want to crawl?");
+            int crawledProduct = int.Parse(Console.ReadLine());
+
             for (int page = 1; page <= 10; page++)
             {
                 driver.Navigate().GoToUrl($"https://finalproject.dotnet.gg/?currentPage={page}");

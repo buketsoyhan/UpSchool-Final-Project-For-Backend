@@ -1,11 +1,10 @@
 ﻿using Domain.Common;
+using MediatR;
 
-namespace Domain.Entities
+namespace Application.Features.Products.Commands.Add
 {
-    public class Product : EntityBase<Guid>
+    public class ProductAddCommand:IRequest<Response<int>>
     {
-        public Guid Id { get; set; }
-        public Order Order { get; set; }
         public string OrderId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }

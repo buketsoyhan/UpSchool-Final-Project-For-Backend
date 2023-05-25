@@ -15,8 +15,9 @@ namespace Infrastructure.Persistence.Configurations.Application
             // Diğer sütun yapılandırmaları
             builder.Property(o => o.RequestedAmount).IsRequired();
             builder.Property(o => o.TotalFoundAmount).IsRequired();
-            builder.Property(o => o.ProductCrawlType).IsRequired();
 
+            builder.Property(o => o.ProductCrawlType).IsRequired();
+            builder.Property(o => o.ProductCrawlType).HasConversion<int>(); // Convension has been made because Db has not an enum type.
             // Common Fields
 
             // CreatedOn
