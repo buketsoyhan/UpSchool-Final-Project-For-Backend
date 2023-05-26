@@ -51,13 +51,13 @@ class Program
                         string onSalePrice = productElement.FindElement(By.CssSelector(".sale-price")).Text;
                         onSalePrice = onSalePrice.Replace("$", "");
 
-                        products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, SalePrice = decimal.Parse(onSalePrice), OrderId = orderId });
+                        products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, SalePrice = decimal.Parse(onSalePrice), OrderId = Guid.Parse(orderId) });
 
                     }
 
                     else
                     {
-                        products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, OrderId = orderId });
+                        products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, OrderId = Guid.Parse(orderId)});
 
                     }
                 }

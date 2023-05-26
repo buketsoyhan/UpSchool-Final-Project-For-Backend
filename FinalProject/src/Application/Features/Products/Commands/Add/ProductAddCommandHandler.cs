@@ -19,7 +19,7 @@ namespace Application.Features.Products.Commands.Add
             var product = new Product()
             {
                 Name = request.Name,
-                OrderId = request.OrderId,
+                OrderId = Guid.Parse(request.OrderId),
                 Price = request.Price,
                 Picture = request.Picture,
                 IsOnSale = request.IsOnSale,
