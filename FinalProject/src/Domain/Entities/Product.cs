@@ -12,5 +12,6 @@ namespace Domain.Entities
         public string Picture { get; set; }
         public bool IsOnSale { get; set; }
         public decimal? SalePrice { get; set; }
+
     }
 }
