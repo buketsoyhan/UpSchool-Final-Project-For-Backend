@@ -7,8 +7,12 @@ using System.Text.RegularExpressions;
 
 Thread.Sleep(5000);
 
+Console.ReadKey();
+var connectionHubAddress= "https://localhost:7008/Hubs/SeleniumLogHub";
+
+
 var hubConnection = new HubConnectionBuilder()
-                .WithUrl($"https://localhost:7008/Hubs/SeleniumLogHub")
+                .WithUrl(connectionHubAddress)
                 .WithAutomaticReconnect()
                 .Build();
 
@@ -24,12 +28,44 @@ try
     //Eğer log basmazsa async await yapmayı dene!!
     //hubConnection.InvokeAsync<bool>("SendLogNotificationAsync", CreateLog("Website logged in. - " + now.ToString("dd.MM.yyyy : HH:mm")));
     await hubConnection.InvokeAsync("SendLogNotificationAsync", CreateLog("Bot started. "+ now.ToString("dd.MM.yyyy : HH:mm")));
+
     List<Product> products = new List<Product>();
     string pattern = @"(\d+)";
-    string orderId;
 
     Console.WriteLine("How many items do you want to crawl?");
     int crawledProduct = int.Parse(Console.ReadLine());
+
+    int answer = 0;
+
+    while (answer != 1 && answer != 2 && answer != 3)
+    {
+        Console.WriteLine("What products do you want to crawl?");
+        Console.WriteLine("1) All, 2) On Sale, 3) Regular Price Products");
+        string input = Console.ReadLine();
+        if (int.TryParse(input, out answer))
+        {
+            if (answer == 1)
+            {
+                //ProductCrawlType = ProductCrawlType.All,
+            }
+            else if (answer == 2)
+            {
+                //ProductCrawlType = ProductCrawlType.OnDiscount,
+            }
+            else if (answer == 3)
+            {
+                //ProductCrawlType = ProductCrawlType.NonDiscount,
+            }
+            else
+            {
+                Console.WriteLine("You entered an invalid option. Try again.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("You have entered an invalid entry. Please enter a numeric value.");
+        }
+    }
 
     for (int page = 1; page <= 10; page++)
     {
@@ -71,6 +107,8 @@ try
     var totalProduct = products.Count;
     Console.WriteLine(($"{totalProduct} products detected - " + now.ToString("dd.MM.yyyy : HH:mm")));
     await hubConnection.InvokeAsync("SendLogNotificationAsync", CreateLog($"{totalProduct} products detected - " + now.ToString("dd.MM.yyyy : HH:mm")));
+    Console.ReadKey();
+
 
     driver.Quit();
 
@@ -91,6 +129,7 @@ try
     Console.WriteLine("Data scraping completed. - " + now.ToString("dd.MM.yyyy : HH:mm"));
     Console.WriteLine(("Data scraping completed. - " + now.ToString("dd.MM.yyyy : HH:mm")));
 
+    await hubConnection.InvokeAsync("SendLogNotificationAsync", CreateLog($"Data scraping completed. - " + now.ToString("dd.MM.yyyy : HH:mm")));
 
     Console.ReadLine();
 }

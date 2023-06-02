@@ -18,7 +18,6 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 builder.Services.AddCors(options =>
 {
-    //'https://localhost:7257/'
     options.AddPolicy("AllowAll",
         builder => builder
             .AllowAnyMethod()
