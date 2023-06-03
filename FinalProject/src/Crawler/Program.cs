@@ -6,7 +6,7 @@ using OpenQA.Selenium.Chrome;
 using System.Text.RegularExpressions;
 
 Thread.Sleep(5000);
-
+Console.WriteLine("Pless any key to open crawler console app...");
 Console.ReadKey();
 var connectionHubAddress= "https://localhost:7008/Hubs/SeleniumLogHub";
 
@@ -32,10 +32,29 @@ try
     List<Product> products = new List<Product>();
     string pattern = @"(\d+)";
 
-    Console.WriteLine("How many items do you want to crawl?");
-    int crawledProduct = int.Parse(Console.ReadLine());
-
+    int crawledProduct = 0;
+    int count = 0;
     int answer = 0;
+
+
+    bool validInput = true;
+    bool stopLoop = false;
+
+    while (validInput)
+    {
+        Console.WriteLine("How many items do you want to crawl?");
+        string input = Console.ReadLine();
+
+        try
+        {
+            crawledProduct = int.Parse(input);
+            validInput = false;
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Please indicate how many items you would like.");
+        }
+    }
 
     while (answer != 1 && answer != 2 && answer != 3)
     {
@@ -67,7 +86,7 @@ try
         }
     }
 
-    for (int page = 1; page <= 10; page++)
+    for (int page = 1; page <= 10 && !stopLoop; page++)
     {
         driver.Navigate().GoToUrl($"https://finalproject.dotnet.gg/?currentPage={page}");
 
@@ -84,20 +103,24 @@ try
             Match match = Regex.Match(picture, pattern);
 
             bool isOnSale = productElement.FindElements(By.CssSelector(".onsale")).Count > 0;
+            count++;
 
             if (isOnSale == true)
             {
                 string onSalePrice = productElement.FindElement(By.CssSelector(".sale-price")).Text;
                 onSalePrice = onSalePrice.Replace("$", "");
-
                 products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, SalePrice = decimal.Parse(onSalePrice), OrderId = Guid.NewGuid() });
-
             }
 
             else
             {
                 products.Add(new Product { Name = name, Price = decimal.Parse(price), Picture = picture, IsOnSale = isOnSale, OrderId = Guid.NewGuid() });
+            }
 
+            if (count == crawledProduct)
+            {
+                stopLoop=true;
+                break;
             }
         }
         await hubConnection.InvokeAsync("SendLogNotificationAsync", CreateLog($"Page {page} scanned. Total {products.Count} products - " + now.ToString("dd.MM.yyyy : HH:mm")));
@@ -138,6 +161,3 @@ catch (Exception ex)
     Console.WriteLine(ex.ToString());
 }
 SeleniumLogDto CreateLog(string message) => new SeleniumLogDto(message);
-
-
-
