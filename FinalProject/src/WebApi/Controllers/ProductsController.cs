@@ -1,27 +1,32 @@
 ﻿using Application.Features.Products.Commands.Add;
 using Application.Features.Products.Queries.GetAll;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     public class ProductsController : ApiControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> AddAsync(ProductAddCommand command)
+        private readonly IMediator _mediator;
+
+        public ProductsController(IMediator mediator)
         {
-            return Ok(await Mediator.Send(command));
+            _mediator = mediator;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(ProductAddCommand command)
+        {
+            var productId = await _mediator.Send(command);
+            return Ok(productId);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync (ProductGetAllQuery query)
+        public async Task<IActionResult> GetAllProducts()
         {
-            return Ok(await Mediator.Send(query));
+            var query = new ProductGetAllQuery();
+            var dtos = await _mediator.Send(query);
+            return Ok(dtos);
         }
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetByIdAsync(int id)
-        //{
-        //    return Ok(await Mediator.Send(new ProductGetByIdQuery(id, null));
-        //}
     }
 }

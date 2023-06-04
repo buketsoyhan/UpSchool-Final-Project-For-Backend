@@ -12,5 +12,9 @@ namespace Application.Features.Products.Queries.GetAll
             OrderId= orderId;
             IsDeleted= isDeleted;
         }
+
+        public ProductGetAllQuery()
+        {
+        }
     }
 }
