@@ -1,18 +1,47 @@
-﻿@page "/counter"
+﻿@page "/sendEmail"
+@using System.Net.Mail
+@using System.Threading.Tasks
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Send Email</PageTitle>
 
-<h1>Counter</h1>
+<h3>Send me Email</h3>
 
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="emailAddress">Email Address:</label>
+                <input type="email" class="form-control" id="emailAddress" @bind="email" />
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" @onclick="SendEmail">Send</button>
+    <div>@resultMessage</div>
+</div>
 
 @code {
-    private int currentCount = 0;
+    private string email;
+    private string resultMessage;
 
-    private void IncrementCount()
+    private async Task SendEmail()
     {
-        currentCount++;
+        try
+        {
+            var mail = new MailMessage();
+            mail.To.Add(email);
+            mail.Subject = "Hello!";
+            mail.Body = "This is a test mail.";
+
+            using (var smtpClient = new SmtpClient("smtp.example.com"))
+            {
+                smtpClient.Send(mail);
+            }
+
+            resultMessage = "Email sent succesfully!";
+        }
+        catch (Exception ex)
+        {
+            resultMessage = "An error occurred while sending the email: " + ex.Message;
+        }
     }
 }

@@ -33,7 +33,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructure(builder.Configuration); // Encapsulation with AddInfrastructure
+builder.Services.AddInfrastructure(builder.Configuration, builder.Environment.WebRootPath); // Encapsulation with AddInfrastructure
 
 var app = builder.Build();
 
@@ -43,6 +43,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
+
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
