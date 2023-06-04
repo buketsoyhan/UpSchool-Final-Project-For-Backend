@@ -1,46 +1,33 @@
-﻿using Application.Common.Interfaces;
-using Domain.Entities;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿//using Application.Common.Interfaces;
+//using Application.Features.OrderEvents.Queries.GetAll;
+//using Application.Features.Orders.Commands.Add;
+//using Domain.Common;
+//using Domain.Entities;
+//using MediatR;
+//using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Orders.Queries.GetAll
-{
-    public class OrderEventGetAllQueryHandler : IRequestHandler<OrderEventGetAllQuery, List<OrderEventGetAllDto>>
-    {
-        public readonly IApplicationDbContext _applicationDbContext;
+//namespace Application.Features.Orders.Queries.GetAll
+//{
+//    public class OrderAddCommandHandler : IRequestHandler<OrderAddCommand, Response<Guid>>
+//    {
+//        private readonly IApplicationDbContext _applicationDbContext;
 
-        public OrderEventGetAllQueryHandler(IApplicationDbContext applicationDbContext)
-        {
-            _applicationDbContext=applicationDbContext;
-        }
+//        public OrderAddCommandHandler(IApplicationDbContext applicationDbContext)
+//        {
+//            _applicationDbContext = applicationDbContext;
+//        }
+//        public async Task<List<OrderEventGetAllDto>> Handle(OrderAddCommand request, CancellationToken cancellationToken)
+//        {
+//            var orderEvents = await _applicationDbContext.OrderEvents.ToListAsync();
 
-        public async Task<List<OrderEventGetAllDto>> Handle(OrderEventGetAllQuery request, CancellationToken cancellationToken)
-        {
-            var dbQuery = _applicationDbContext.OrderEvents.AsQueryable();
-            dbQuery=dbQuery.Where(x => x.IsDeleted==request.IsDeleted);
+//            var dtos = orderEvents.Select(e => new OrderEventGetAllDto
+//            {
+//                Id = e.Id,
+//                OrderId = e.OrderId,
+//                Status = e.Status
+//            }).ToList();
 
-            if (request.IsDeleted.HasValue) dbQuery=dbQuery.Where(x => x.IsDeleted==request.IsDeleted.Value);
-
-            var orderEvents = await dbQuery.ToListAsync(cancellationToken);
-            var orderEventDtos = MapOrderEventsToGettAllDtos(orderEvents);
-            return orderEventDtos.ToList();
-            
-        }
-
-        private IEnumerable<OrderEventGetAllDto> MapOrderEventsToGettAllDtos(List<OrderEvent> orderEvents)
-        {
-            List<OrderEventGetAllDto> orderEventsGetAllDtos = new List<OrderEventGetAllDto>();
-            foreach (var orderEvent in orderEvents)
-            {
-
-                yield return new OrderEventGetAllDto()
-                {
-                    Id=orderEvent.Id,
-                    OrderId=orderEvent.OrderId,
-                    Status=orderEvent.Status,
-                    IsDeleted=orderEvent.IsDeleted,
-                };
-            }
-        }
-    }
-}
+//            return dtos;
+//        }
+//    }
+//}

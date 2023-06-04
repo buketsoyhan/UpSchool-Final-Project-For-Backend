@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Orders.Queries.GetAll
 {
-    public class OrderEventGetAllQuery : IRequest<List<OrderEventGetAllDto>>
+    public class OrdersGetAllQuery : IRequest<List<OrderEventGetAllDto>>
     {
-        public OrderEventGetAllQuery(bool? isDeleted)
+        public OrdersGetAllQuery()
+        {
+        }
+        public OrdersGetAllQuery(bool? isDeleted)
         {
             IsDeleted = isDeleted;
         }

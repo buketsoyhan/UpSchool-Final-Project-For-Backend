@@ -1,4 +1,5 @@
 ﻿using Application.Features.Orders.Commands.Add;
+using Application.Features.Orders.Queries.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllOrders()
         {
-            var query = new OrderGetAllQuery();
+            var query = new OrdersGetAllQuery();
             var dtos = await _mediator.Send(query);
             return Ok(dtos);
         }

@@ -1,9 +1,14 @@
-﻿using Domain.Dtos;
+﻿using Application.Features.Orders.Commands.Add;
+using Domain.Dtos;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.SignalR.Client;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Net.Http;
 using System.Text.RegularExpressions;
+
+using var httpClient = new HttpClient();
 
 Thread.Sleep(5000);
 Console.WriteLine("Pless any key to open crawler console app...");
@@ -40,6 +45,8 @@ try
     bool validInput = true;
     bool stopLoop = false;
 
+    var orderAddRequest = new OrderAddCommand();
+
     while (validInput)
     {
         Console.WriteLine("How many items do you want to crawl?");
@@ -65,15 +72,27 @@ try
         {
             if (answer == 1)
             {
-                //ProductCrawlType = ProductCrawlType.All,
+                orderAddRequest = new OrderAddCommand()
+                {
+                    Id = Guid.NewGuid(),
+                    ProductCrawlType = ProductCrawlType.All,
+                };
             }
             else if (answer == 2)
             {
-                //ProductCrawlType = ProductCrawlType.OnDiscount,
+                orderAddRequest = new OrderAddCommand()
+                {
+                    Id = Guid.NewGuid(),
+                    ProductCrawlType = ProductCrawlType.OnDiscount,
+                };
             }
             else if (answer == 3)
             {
-                //ProductCrawlType = ProductCrawlType.NonDiscount,
+                orderAddRequest = new OrderAddCommand()
+                {
+                    Id = Guid.NewGuid(),
+                    ProductCrawlType = ProductCrawlType.NonDiscount,
+                };
             }
             else
             {
