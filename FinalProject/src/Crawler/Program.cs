@@ -1,5 +1,5 @@
-﻿using Application.Features.Orders.Commands.Add;
-using Domain.Dtos;
+﻿using Application.Common.Models.SeleniumLog;
+using Application.Features.Orders.Commands.Add;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.SignalR.Client;

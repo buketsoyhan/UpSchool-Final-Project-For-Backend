@@ -1,4 +1,4 @@
-﻿using Domain.Dtos;
+﻿using Application.Common.Models.SeleniumLog;
 using Microsoft.AspNetCore.SignalR;
 
 namespace WebApi.Hubs

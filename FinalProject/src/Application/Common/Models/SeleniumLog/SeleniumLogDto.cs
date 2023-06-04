@@ -1,4 +1,4 @@
-﻿namespace Domain.Dtos
+﻿namespace Application.Common.Models.SeleniumLog
 {
     public class SeleniumLogDto
     {
@@ -7,7 +7,7 @@
 
         public SeleniumLogDto(string message)
         {
-            Message= message;
+            Message = message;
             SentOn = DateTimeOffset.Now;
         }
     }
