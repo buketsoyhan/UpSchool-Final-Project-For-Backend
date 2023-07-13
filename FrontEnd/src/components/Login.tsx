@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const useStyles = makeStyles({
   container: {
@@ -26,7 +27,6 @@ const useStyles = makeStyles({
 const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const classes = useStyles();
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ const Login: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
 
   const handleLogin = () => {
     onLogin();
-    navigate('/dashboard');
+    window.location.href = `${BASE_URL}/Authentication/GoogleSignInStart`;
   };
 
   return (

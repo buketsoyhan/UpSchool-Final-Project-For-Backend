@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Orders from './components/Orders';
 import Settings from './components/Settings';
 import Users from './components/Users';
+import SocialLogin from "./components/SocialLogin";
 
 const useStyles = makeStyles({
   modal: {
@@ -66,11 +67,12 @@ const App: React.FC = () => {
               <Route path="/orders" element={<Orders handleOpenModal={handleOpenModal} />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/social-login" element={<SocialLogin/>}/>
             </>
           ) : null}
         </Routes>
 
-        <Modal open={open} onClose={handleCloseModal}>
+        {/* <Modal open={open} onClose={handleCloseModal}>
           <div className={classes.modal}>
             <h2>Order Events</h2>
             <TableContainer component={Paper}>
@@ -92,7 +94,7 @@ const App: React.FC = () => {
               </Table>
             </TableContainer>
           </div>
-        </Modal>
+        </Modal> */}
       </div>
     </Router>
   );
