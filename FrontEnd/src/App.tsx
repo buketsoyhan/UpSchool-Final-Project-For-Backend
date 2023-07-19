@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Link, Routes, Navigate } from 'react-ro
 import { Button, Modal, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Dashboard from './components/Dashboard';
-import Login from './components/Login';
-import Orders from './components/Orders';
-import Settings from './components/Settings';
-import Users from './components/Users';
-import SocialLogin from "./components/SocialLogin";
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Orders from './pages/Orders';
+import Settings from './pages/Settings';
+import Users from './pages/Users';
+import SocialLogin from "./pages/SocialLogin";
 
 const useStyles = makeStyles({
   modal: {

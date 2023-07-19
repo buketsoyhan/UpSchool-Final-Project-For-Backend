@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, makeStyles, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   title: {
@@ -44,18 +45,21 @@ const Dashboard: React.FC = () => {
     setSelectedOption(event.target.value);
   };
 
-  const handleFormSubmit = (event: React.FormEvent) => {
+  const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Verileri işleme ve API isteği yapma işlemleri burada gerçekleştirilir
-    // Örnek olarak, console'a yazdırıyoruz
-    console.log('Product Count:', productCount);
-    console.log('Selected Option:', selectedOption);
+    try {
+      //api adres düzenlenecek
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/crawl`, {
+        productCount,
+        selectedOption,
+      });
 
-    // API isteği ve verilerin işlenmesi burada yapılabilir
-    // ...
+      console.log(response.data); 
+    } catch (error) {
+      console.error(error);
+    }
 
-    // İşlem tamamlandıktan sonra formu sıfırla
     setProductCount('');
     setSelectedOption('');
   };
@@ -64,7 +68,7 @@ const Dashboard: React.FC = () => {
     <div>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title} >
             Dashboard
           </Typography>
           <Button color="inherit" component={RouterLink} to="/orders">Orders</Button>
