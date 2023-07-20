@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\WebApi\WebApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crawler", "src\Crawler\Crawler.csproj", "{C08512D6-ABFF-4447-A498-13366AB64A76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wasm", "src\Wasm\Wasm.csproj", "{C560EF38-5AD0-44D9-AAE0-72BB5BE9CAB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm", "src\Wasm\Wasm.csproj", "{C560EF38-5AD0-44D9-AAE0-72BB5BE9CAB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerService", "CrawlerService\CrawlerService.csproj", "{7281C763-7107-4714-A6B7-9515C3A51933}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{C560EF38-5AD0-44D9-AAE0-72BB5BE9CAB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C560EF38-5AD0-44D9-AAE0-72BB5BE9CAB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C560EF38-5AD0-44D9-AAE0-72BB5BE9CAB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7281C763-7107-4714-A6B7-9515C3A51933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7281C763-7107-4714-A6B7-9515C3A51933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7281C763-7107-4714-A6B7-9515C3A51933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7281C763-7107-4714-A6B7-9515C3A51933}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{BCF9FED6-76BA-4095-ACFB-B53A1C516BDE} = {AE173266-F87C-4B66-803D-CA8CC4E40987}
 		{C08512D6-ABFF-4447-A498-13366AB64A76} = {AE173266-F87C-4B66-803D-CA8CC4E40987}
 		{C560EF38-5AD0-44D9-AAE0-72BB5BE9CAB4} = {AE173266-F87C-4B66-803D-CA8CC4E40987}
+		{7281C763-7107-4714-A6B7-9515C3A51933} = {AE173266-F87C-4B66-803D-CA8CC4E40987}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9EB16D28-C71D-4375-9295-99E5619BDFB4}

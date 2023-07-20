@@ -9,7 +9,7 @@ namespace Infrastructure.Services
 
         public async Task<JwtDto> SocialLoginAsync(string email, string firstName, string lastName, CancellationToken cancellationToken)
         {
-            //write code!
+            return null;
         }
     }
 }

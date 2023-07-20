@@ -30,8 +30,6 @@ try
     DateTime now = DateTime.Now;
 
     Console.WriteLine("Website logged in. - " + now.ToString("dd.MM.yyyy : HH:mm"));
-    //Eğer log basmazsa async await yapmayı dene!!
-    //hubConnection.InvokeAsync<bool>("SendLogNotificationAsync", CreateLog("Website logged in. - " + now.ToString("dd.MM.yyyy : HH:mm")));
     await hubConnection.InvokeAsync("SendLogNotificationAsync", CreateLog("Bot started. "+ now.ToString("dd.MM.yyyy : HH:mm")));
 
     List<Product> products = new List<Product>();
@@ -107,7 +105,7 @@ try
 
     for (int page = 1; page <= 10 && !stopLoop; page++)
     {
-        driver.Navigate().GoToUrl($"https://finalproject.dotnet.gg/?currentPage={page}");
+        driver.Navigate().GoToUrl($"https://4teker.net/?currentPage={page}");
 
         IReadOnlyCollection<IWebElement> productElements = driver.FindElements(By.CssSelector(".card"));
 
