@@ -72,6 +72,7 @@ const Dashboard: React.FC = () => {
             Dashboard
           </Typography>
           <Button color="inherit" component={RouterLink} to="/orders">Orders</Button>
+          <Button color="inherit" component={RouterLink} to="/livelogs">Live Logs</Button>
           <Button color="inherit" component={RouterLink} to="/users">Users</Button>
           <Button color="inherit" component={RouterLink} to="/settings">Settings</Button>
         </Toolbar>

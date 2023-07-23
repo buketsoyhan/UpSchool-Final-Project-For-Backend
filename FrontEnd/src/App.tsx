@@ -9,6 +9,7 @@ import Orders from './pages/Orders';
 import Settings from './pages/Settings';
 import Users from './pages/Users';
 import SocialLogin from "./pages/SocialLogin";
+import LiveLogs from './pages/LiveLogs';
 
 const useStyles = makeStyles({
   modal: {
@@ -71,30 +72,6 @@ const App: React.FC = () => {
             </>
           ) : null}
         </Routes>
-
-        {/* <Modal open={open} onClose={handleCloseModal}>
-          <div className={classes.modal}>
-            <h2>Order Events</h2>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Event</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {orderEvents.map((event: any) => (
-                    <TableRow key={event.id}>
-                      <TableCell>{event.date}</TableCell>
-                      <TableCell>{event.event}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </Modal> */}
       </div>
     </Router>
   );
